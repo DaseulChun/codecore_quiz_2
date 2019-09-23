@@ -8,8 +8,25 @@
 
 Idea.destroy_all
 Review.destroy_all
+User.destroy_all
 
 NUM_IDEAS = 30
+NUM_USERS = 10
+PASSWORD = "supersecret"
+
+NUM_USERS.times do
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+
+  User.create(
+    first_name: first_name,
+    last_name: last_name,
+    email: "#{first_name.downcase}.#{last_name.downcase}@example.com",
+    password: PASSWORD
+  )
+end
+
+users = User.all
 
 NUM_IDEAS.times do
   created_at = Faker::Date.backward(days: 365 * 5)
@@ -18,12 +35,14 @@ NUM_IDEAS.times do
     description: Faker::Hacker.say_something_smart,
     created_at: created_at,
     updated_at: created_at,
+    user: users.sample
   )
 
   if i.valid?
     i.reviews = rand(0..10).times.map do
       Review.new(body: Faker::Quote.most_interesting_man_in_the_world,
-      )
+      user: users.sample
+    )
     end
   end
 end
@@ -33,3 +52,4 @@ reviews = Review.all
 
 puts Cowsay.say("Generated #{ideas.count} ideas", :frogs)
 puts Cowsay.say("Generated #{reviews.count} reviews", :stegosaurus)
+puts Cowsay.say("Generated #{users.count} users", :tux)

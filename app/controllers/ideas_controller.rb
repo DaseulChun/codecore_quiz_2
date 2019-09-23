@@ -1,4 +1,5 @@
 class IdeasController < ApplicationController
+  before_action :authenticated_user!, except: [:index, :show]
   before_action :find_idea, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -12,6 +13,7 @@ class IdeasController < ApplicationController
 
   def create
     @idea = Idea.new idea_params
+    @idea.user = current_user
 
     if @idea.save
       flash[:notice] = "Idea created successfully"
