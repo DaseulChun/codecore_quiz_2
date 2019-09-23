@@ -9,7 +9,7 @@
     <% end %>
     <h1><%= @idea.title %></h1>
     <p><%= @idea.description %></p>
-    <p>Posted By <%= @idea.user.full_name %></p>
+    <p>Posted By <%= @idea.user&.full_name || 'DELETED' %></p>
     <small>Posted <%= time_ago_in_words(@idea.created_at) %> ago</small>
   </div>
 
@@ -39,7 +39,7 @@
       <% @reviews.each do |review| %>
         <p>
           <%= review.body %><br />
-          <%= review.user.full_name %>
+          <%= review.user&.full_name || 'DELETED' %>
           <small>
             Commented <%= time_ago_in_words (review.created_at) %> ago
           </small>
