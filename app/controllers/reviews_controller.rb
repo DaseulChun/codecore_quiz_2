@@ -20,8 +20,13 @@ class ReviewsController < ApplicationController
   def destroy
     @review = Review.find params[:id]
     @idea = @review.idea
-    @review.destroy
-    redirect_to idea_path(@idea), notice: "Review Deleted"
+
+    if can? :crud, @review
+      @review.destroy
+      redirect_to idea_path(@idea), notice: "Review Deleted"
+    else
+      redirect_to root_path, alert: "Not Authorized"
+    end
   end
 
   private 

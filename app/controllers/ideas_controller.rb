@@ -1,7 +1,8 @@
 class IdeasController < ApplicationController
   before_action :authenticated_user!, except: [:index, :show]
   before_action :find_idea, only: [:show, :edit, :update, :destroy]
-
+  before_action :authorize!, only: [:edit, :update, :destroy]
+  
   def index
     @ideas = Idea.order(created_at: :desc)
   end
@@ -54,5 +55,9 @@ class IdeasController < ApplicationController
 
   def find_idea
     @idea = Idea.find params[:id]
+  end
+
+  def authorize!
+    redirect_to root_path, alert: "Not Authorized" unless can?(:crud, @idea)
   end
 end

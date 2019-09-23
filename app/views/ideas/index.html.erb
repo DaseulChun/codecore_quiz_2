@@ -4,6 +4,7 @@
     <div class="card-body">
       <h5 class="card-title text-primary"><%= link_to idea.title, idea_path(idea) %></h5>
       <p class="card-text"><%= idea.description %></p>
+      <p class="card-text">By <%= idea.user.first_name %></p>
     </div>
   </div>
 <% end %>

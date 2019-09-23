@@ -14,8 +14,10 @@
   </div>
 
   <div class="my-3">
+    <% if can?(:crud, @idea) %>
       <%= link_to "Edit", edit_idea_path(@idea), class:"btn btn-outline-primary" %>
       <%= link_to "Delete", idea_path(@idea), method: :delete, data: {confirm: "Are you srue?"}, class:"btn btn-outline-primary" %>
+    <% end %>
   </div>
 
   <div class="form-group">
@@ -42,19 +44,19 @@
             Commented <%= time_ago_in_words (review.created_at) %> ago
           </small>
           
-         
-          ●
-          <small>
-              <%= link_to(
-                  "Delete", 
-                  review_path(review), 
-                  method: :delete,
-                  data: {
-                    confirm: "Are you sure?"
-                  })
-              %>
-      
-          </small>
+          <% if can?(:crud, review) %>
+            ●
+            <small>
+                <%= link_to(
+                    "Delete", 
+                    review_path(review), 
+                    method: :delete,
+                    data: {
+                      confirm: "Are you sure?"
+                    })
+                %>
+            </small>
+          <% end %>
         </p>
       <% end %>
     <% end %>
