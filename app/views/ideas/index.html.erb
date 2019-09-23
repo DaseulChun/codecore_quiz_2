@@ -1,0 +1,10 @@
+<div class="d-flex flex-row justify-content-around flex-wrap my-3">
+<% @ideas.each do |idea| %>
+  <div class="card my-3" style="width: 50rem;">
+    <div class="card-body">
+      <h5 class="card-title text-primary"><%= link_to idea.title, idea_path(idea) %></h5>
+      <p class="card-text"><%= idea.description %></p>
+    </div>
+  </div>
+<% end %>
+</div>
