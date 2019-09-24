@@ -5,7 +5,6 @@
       <h5 class="card-title text-primary"><%= link_to idea.title, idea_path(idea) %></h5>
       <p class="card-text"><%= idea.description %></p>
       <p class="card-text">By <%= idea.user&.first_name || 'DELETED' %></p>
-
       <% @like = idea.likes.find_by(user: current_user) %>
       <% if @like.present? && can?(:destroy, @like) %>
         <%= link_to(
@@ -19,11 +18,11 @@
               method: :post
         )%>
       <% end %>
-
-      <small>
-        (Likes: <%= idea.likes.count %>)
+      
+      <small> 
+        | Likes: <%= idea.likes.count %>
       </small>
-
+      
     </div>
   </div>
 <% end %>

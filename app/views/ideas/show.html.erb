@@ -16,7 +16,7 @@
   <div class="my-3">
     <% if can?(:crud, @idea) %>
       <%= link_to "Edit", edit_idea_path(@idea), class:"btn btn-outline-primary" %>
-      <%= link_to "Delete", idea_path(@idea), method: :delete, data: {confirm: "Are you srue?"}, class:"btn btn-outline-primary" %>
+      <%= link_to "Delete", idea_path(@idea), method: :delete, data: {confirm: "Are you srue?"}, class:"btn btn-outline-danger" %>
     <% end %>
   </div>
 
@@ -53,7 +53,8 @@
                     method: :delete,
                     data: {
                       confirm: "Are you sure?"
-                    })
+                    }
+                )
                 %>
             </small>
           <% end %>
