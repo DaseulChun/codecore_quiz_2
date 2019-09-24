@@ -1,0 +1,29 @@
+<div class="d-flex flex-row justify-content-around flex-wrap my-3">
+<% @ideas.each do |idea| %>
+  <div class="card my-3" style="width: 50rem;">
+    <div class="card-body">
+      <h5 class="card-title text-primary"><%= link_to idea.title, idea_path(idea) %></h5>
+      <p class="card-text"><%= idea.description %></p>
+      <p class="card-text">By <%= idea.user&.first_name || 'DELETED' %></p>
+      <% @like = idea.likes.find_by(user: current_user) %>
+      <% if @like.present? && can?(:destroy, @like) %>
+        <%= link_to(
+              "Liked",
+              like_path(@like),
+              method: :delete
+        ) %>
+      <% elsif can?(:like, idea) %>
+        <%= link_to(
+              "Like👍", idea_likes_path(idea),
+              method: :post
+        )%>
+      <% end %>
+      
+      <small> 
+        | Likes: <%= idea.likes.count %>
+      </small>
+      
+    </div>
+  </div>
+<% end %>
+</div>
